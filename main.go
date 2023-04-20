@@ -3,13 +3,13 @@ package main
 import (
 	"crypto/tls"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/smtp"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -29,7 +29,13 @@ const (
 )
 
 func init() {
-	flag.IntVar(&frequency, "f", 1, "Poll frequency in minutes")
+	var err error
+	pf := os.Getenv("IP_WATCHDOG_POLL_FREQUENCY")
+	frequency, err = strconv.Atoi(pf)
+	if err != nil {
+		log.Fatal("invalid frequency: ", pf)
+	}
+
 	appPass = os.Getenv("IP_WATCHDOG_GMAIL_PASS")
 	gmailUser = os.Getenv("IP_WATCHDOG_GMAIL_USER")
 }
@@ -116,7 +122,6 @@ func sendMail() error {
 	return nil
 }
 func worker() {
-
 	publicIP, err := getPublicIP()
 	if err != nil {
 		fmt.Printf("Error getting public IP: %s\n", err)

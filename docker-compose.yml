@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  ip-watch:
+    build: .
+    restart: unless-stopped
+    environment:
+      - IP_WATCHDOG_GMAIL_PASS=${IP_WATCHDOG_GMAIL_PASS}
+      - IP_WATCHDOG_GMAIL_USER=${IP_WATCHDOG_GMAIL_USER}
+      - IP_WATCHDOG_POLL_FREQUENCY=1

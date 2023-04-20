@@ -1,2 +1,3 @@
 IP_WATCHDOG_GMAIL_PASS=gmail application password
 IP_WATCHDOG_GMAIL_USER=gmail user
+IP_WATCHDOG_POLL_FREQUENCY=1 # in minutes
